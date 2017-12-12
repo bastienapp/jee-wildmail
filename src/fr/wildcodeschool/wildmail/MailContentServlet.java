@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "MailContentServlet")
 public class MailContentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String createFromValue = request.getParameter("createFromValue");
         String createToValue = request.getParameter("createToValue");
         String createContentValue = request.getParameter("createContentValue");

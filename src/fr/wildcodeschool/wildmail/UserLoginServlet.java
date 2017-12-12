@@ -14,6 +14,7 @@ public class UserLoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String loginEmailValue = request.getParameter("loginEmailValue");
         if (loginEmailValue != null && !loginEmailValue.isEmpty())  {
             request.getSession().setAttribute("userEmail", loginEmailValue);
