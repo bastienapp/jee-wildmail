@@ -20,23 +20,16 @@ public class MailContentServlet extends HttpServlet {
         String id = request.getParameter("id");
         boolean success = false;
         if (id != null && !id.isEmpty()) {
-            try {
-                int idValue = Integer.parseInt(id);
-                List<MailBean> mailList;
-                if (request.getSession().getAttribute("mailList") == null) {
-                    mailList = new ArrayList<>();
-                } else {
-                    mailList = (List<MailBean>) request.getSession().getAttribute("mailList");
-                }
-                if (idValue < mailList.size()) {
-                    MailBean mailBean = mailList.get(idValue);
-                    success = true;
-                    request.setAttribute("mailBean", mailBean);
-                    this.getServletContext().getRequestDispatcher("/mail_content.jsp").forward(request, response);
-                }
-            } catch (NumberFormatException e) {
-                // id value incorrect
-            }
+            List<MailBean> mailList = new ArrayList<>();
+            // TODO : récupère la liste des emails en session
+
+
+
+            int position = Integer.parseInt(id);
+            MailBean mailBean = mailList.get(position);
+            success = true;
+            request.setAttribute("mailBean", mailBean);
+            this.getServletContext().getRequestDispatcher("/mail_content.jsp").forward(request, response);
         }
         if (!success) {
             response.sendRedirect(request.getContextPath() + "/mail/list");

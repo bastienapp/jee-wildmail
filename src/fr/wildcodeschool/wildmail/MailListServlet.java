@@ -14,7 +14,6 @@ public class MailListServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO : lecture en base de données
         this.getServletContext().getRequestDispatcher("/mail_list.jsp").forward(request, response);
     }
 }

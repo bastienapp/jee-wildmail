@@ -20,20 +20,9 @@ public class UserLoginServlet extends HttpServlet {
         String loginEmailValue = request.getParameter("loginEmailValue");
         if (loginEmailValue != null && !loginEmailValue.isEmpty()) {
             request.getSession().setAttribute("userEmail", loginEmailValue);
-            Cookie cookie = new Cookie("userEmail", loginEmailValue);
-            cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(cookie);
+            // TODO : stocker l'email dans les cookies
         } else {
-            // check cookie
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("userEmail")) {
-                        request.getSession().setAttribute("userEmail", cookie.getValue());
-                    }
-                }
-            }
+            // TODO : vérifier si l'email est dans les cookies
         }
         request.getRequestDispatcher("/user_login.jsp").forward(request, response);
     }

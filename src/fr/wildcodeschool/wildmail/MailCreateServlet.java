@@ -25,20 +25,21 @@ public class MailCreateServlet extends HttpServlet {
         mailBean.setTo(createToValue);
         mailBean.setSubject(createSubjectValue);
         mailBean.setContent(createContentValue);
-        // if mail list does not exists, create it
-        List<MailBean> mailList;
-        if (request.getSession().getAttribute("mailList") == null) {
-            mailList = new ArrayList<>();
-        } else {
-            mailList = (List<MailBean>) request.getSession().getAttribute("mailList");
-            // TODO : gestion de la base de données
-        }
+
+        List<MailBean> mailList = new ArrayList<>();
+        // TODO : récupère la liste des emails en session
+
+
+
         // add bean id
         mailBean.setId(mailList.size());
         // add bean in mail list
         mailList.add(mailBean);
-        // add mail list in session
-        request.getSession().setAttribute("mailList", mailList);
+
+        // TODO : ajoute la liste modifiée en session
+
+
+
         // redirect to /mail/list
         response.sendRedirect(request.getContextPath() + "/mail/list");
     }
