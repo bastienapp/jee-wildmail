@@ -26,10 +26,8 @@ public class MailCreateServlet extends HttpServlet {
         mailBean.setSubject(createSubjectValue);
         mailBean.setContent(createContentValue);
         // if mail list does not exists, create it
-        List<MailBean> mailList;
-        if (request.getSession().getAttribute("mailList") == null) {
-            mailList = new ArrayList<>();
-        } else {
+        List<MailBean> mailList = new ArrayList<>();
+        if (request.getSession().getAttribute("mailList") != null) {
             mailList = (List<MailBean>) request.getSession().getAttribute("mailList");
             // TODO : gestion de la base de données
         }
