@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
 @WebServlet(name = "MailContentServlet")
 public class MailContentServlet extends HttpServlet {
@@ -18,13 +17,34 @@ public class MailContentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        int position = Integer.parseInt(id);
-        List<MailBean> mailList = new ArrayList<>();
-        if (request.getSession().getAttribute("mailList") != null) {
-            mailList = (List<MailBean>) request.getSession().getAttribute("mailList");
+
+        try {
+            Class driverClass = Class.forName("com.mysql.jdbc.Driver");
+            Driver driver = (Driver) driverClass.newInstance();
+            DriverManager.registerDriver(driver);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "xi3!prst4");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM mail where mail_id = ?");
+            preparedStatement.setInt(1, Integer.parseInt(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                MailBean mailBean = new MailBean();
+                mailBean.setId(resultSet.getInt("mail_id"));
+                mailBean.setFrom(resultSet.getString("mail_from"));
+                mailBean.setTo(resultSet.getString("mail_to"));
+                mailBean.setSubject(resultSet.getString("mail_subject"));
+                mailBean.setContent(resultSet.getString("mail_content"));
+                request.setAttribute("mailBean", mailBean);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        MailBean mailBean = mailList.get(position);
-        request.setAttribute("mailBean", mailBean);
+
         this.getServletContext().getRequestDispatcher("/mail_content.jsp").forward(request, response);
     }
 }

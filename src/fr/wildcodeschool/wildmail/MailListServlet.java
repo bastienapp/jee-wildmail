@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "MailListServlet")
 public class MailListServlet extends HttpServlet {
@@ -18,13 +20,32 @@ public class MailListServlet extends HttpServlet {
 
         String userEmail = (String) request.getSession().getAttribute("userEmail");
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM mail WHERE from = '" + userEmail + "';");
+            Class driverClass = Class.forName("com.mysql.jdbc.Driver");
+            Driver driver = (Driver) driverClass.newInstance();
+            DriverManager.registerDriver(driver);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "xi3!prst4");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM mail where mail_from = ?");
+            preparedStatement.setString(1, userEmail);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<MailBean> mailList = new ArrayList<>();
             while (resultSet.next()) {
-                // TODO
+                MailBean mailBean = new MailBean();
+                mailBean.setId(resultSet.getInt("mail_id"));
+                mailBean.setFrom(resultSet.getString("mail_from"));
+                mailBean.setTo(resultSet.getString("mail_to"));
+                mailBean.setSubject(resultSet.getString("mail_subject"));
+                mailBean.setContent(resultSet.getString("mail_content"));
+                mailList.add(mailBean);
             }
+
+            request.setAttribute("mailList", mailList);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 

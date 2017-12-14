@@ -13,7 +13,7 @@
     </head>
     <body>
         <ul>
-        <c:forEach items="${sessionScope.mailList}" var="mail">
+        <c:forEach items="${requestScope.mailList}" var="mail">
             <li>
                 <span><strong>To :</strong> ${mail.to}</span>
                 <span><strong>Subject :</strong> ${mail.subject}</span>
