@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "MailContentServlet")
 public class MailContentServlet extends HttpServlet {
@@ -18,14 +16,14 @@ public class MailContentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        List<MailBean> mailList = new ArrayList<>();
-        // TODO : récupère la liste des emails en session
 
 
+        MailBean mailBean = new MailBean();
 
-        int position = Integer.parseInt(id);
-        MailBean mailBean = mailList.get(position);
+        // TODO : récupérer l'email en BDD grâce à son ID
+
         request.setAttribute("mailBean", mailBean);
+
         this.getServletContext().getRequestDispatcher("/mail_content.jsp").forward(request, response);
     }
 }

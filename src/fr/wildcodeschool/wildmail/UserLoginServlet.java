@@ -2,7 +2,6 @@ package fr.wildcodeschool.wildmail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +19,10 @@ public class UserLoginServlet extends HttpServlet {
         String loginEmailValue = request.getParameter("loginEmailValue");
         if (loginEmailValue != null && !loginEmailValue.isEmpty()) {
             request.getSession().setAttribute("userEmail", loginEmailValue);
-            // TODO : stocker l'email dans les cookies
+
+            // TODO : enregistrer l'email dans les cookies
         } else {
-            // TODO : vérifier si l'email est dans les cookies
+            // TODO : vérifier si l'email est dans les cookies, et l'enregistrer en session
         }
         request.getRequestDispatcher("/user_login.jsp").forward(request, response);
     }

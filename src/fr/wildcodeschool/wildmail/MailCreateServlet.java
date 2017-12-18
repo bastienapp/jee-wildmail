@@ -6,39 +6,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @WebServlet(name = "MailCreateServlet")
 public class MailCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // get POST mail params
         request.setCharacterEncoding("UTF-8");
-        String createFromValue = request.getParameter("createFromValue");
+        String userEmail = (String) request.getSession().getAttribute("userEmail");
         String createToValue = request.getParameter("createToValue");
         String createSubjectValue = request.getParameter("createSubjectValue");
         String createContentValue = request.getParameter("createContentValue");
-        // create a bean
-        MailBean mailBean = new MailBean();
-        mailBean.setFrom(createFromValue);
-        mailBean.setTo(createToValue);
-        mailBean.setSubject(createSubjectValue);
-        mailBean.setContent(createContentValue);
 
-        List<MailBean> mailList = new ArrayList<>();
-        // TODO : récupère la liste des emails en session
-
-
-
-        // add bean id
-        mailBean.setId(mailList.size());
-        // add bean in mail list
-        mailList.add(mailBean);
-
-        // TODO : ajoute la liste modifiée en session
-
-
+        // TODO : ajouter l'email en BDD
 
         // redirect to /mail/list
         response.sendRedirect(request.getContextPath() + "/mail/list");

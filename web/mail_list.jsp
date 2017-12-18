@@ -5,7 +5,7 @@
     </head>
     <body>
         <ul>
-            <%-- TODO : afficher la liste des mails à partir de la session --%>
+            <%-- TODO : afficher la liste des emails --%>
         </ul>
         <form action="${pageContext.request.contextPath}/mail/create" method="get">
             <input type="submit" value="Send a new mail" />
