@@ -28,7 +28,7 @@ public class MailCreateServlet extends HttpServlet {
             Class driverClass = Class.forName("com.mysql.jdbc.Driver");
             Driver driver = (Driver) driverClass.newInstance();
             DriverManager.registerDriver(driver);
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "xi3!prst4");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "mysql");
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO mail VALUES(null, ?, ?, ?, ?);");
             preparedStatement.setString(1, mailBean.getFrom());
             preparedStatement.setString(2, mailBean.getTo());

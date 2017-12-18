@@ -15,7 +15,7 @@
             <label for="createTo">To : </label>
             <input required type="email" name="createToValue" id="createTo" placeholder="Send to..." />
             <br />
-            <label for="createSubject">To : </label>
+            <label for="createSubject">Subject : </label>
             <input required type="text" name="createSubjectValue" id="createSubject" placeholder="Your subject here..." />
             <br />
             <label for="createContent">Content : </label>

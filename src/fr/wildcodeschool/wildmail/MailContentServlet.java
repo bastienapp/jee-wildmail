@@ -22,7 +22,7 @@ public class MailContentServlet extends HttpServlet {
             Class driverClass = Class.forName("com.mysql.jdbc.Driver");
             Driver driver = (Driver) driverClass.newInstance();
             DriverManager.registerDriver(driver);
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "xi3!prst4");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/wildmail", "root", "mysql");
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM mail where mail_id = ?");
             preparedStatement.setInt(1, Integer.parseInt(id));
             ResultSet resultSet = preparedStatement.executeQuery();
