@@ -19,7 +19,7 @@ public class MailListServlet extends HttpServlet {
 
         List<MailBean> mailList = new ArrayList<>();
 
-        // TODO : récupérer la liste des emails
+        // TODO : récupérer la liste des emails en BDD
 
         request.setAttribute("mailList", mailList);
 
